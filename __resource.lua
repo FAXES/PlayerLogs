@@ -1,8 +1,8 @@
-------------------------------
--- Server Password, Made by --
---  FAXES & GlitchDetector  --
-------------------------------
--- Config can be found in the files!
+----------------------------------
+-- Player Logger, Made by FAXES --
+----------------------------------
+-- Config in server.lua
 
-client_script "client.lua"
 server_script "server.lua"
+
+-- ToU applies to this script
