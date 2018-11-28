@@ -22,15 +22,13 @@ end
 
 AddEventHandler('playerConnecting', function()
     local source = source
-    local identifierSteam = GetPlayerIdentifiers(source)[1]
-    local identifierRock = GetPlayerIdentifiers(source)[2]
-    local name = GetPlayerName(source)
 
-    if identifierSteam == nil then
-        identifierSteam = "N/A"
-    end
-    if identifierRock == nil then
-        identifierRock = "N/A"
+    for k, v in ipairs(GetPlayerIdentifiers(source)) do
+        if string.sub(v, 1, string.len("steam:")) == "steam:" then
+            identifierSteam = v
+        elseif string.sub(v, 1, string.len("license:")) == "license:" then
+            identifierRock = v
+        end
     end
     
     writeLog(name, identifierSteam, identifierRock)
