@@ -15,7 +15,7 @@ function writeLog(name, identifierSteam, identifierRock)
         file = io.open(fileName .. ".txt", "a")
     end
     if file then
-        file:write("[" .. time .. "] Name: " .. name .. " -> ID: " .. identifierSteam .. " -> Licence: " .. identifierRock .. "\n")
+        file:write("[" .. time .. "] Name: " .. name .. " -> ID: " .. identifierSteam .. " -> Licence: " .. identifierRock .. " \r\n")
     end
     file:close()
 end
