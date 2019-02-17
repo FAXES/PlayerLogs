@@ -27,6 +27,7 @@ end
 AddEventHandler('playerConnecting', function()
     local source = source
     local identifierIP = GetPlayerEP(source)
+    local name = GetPlayerName(source)
     for k, v in ipairs(GetPlayerIdentifiers(source)) do
         if string.sub(v, 1, string.len("steam:")) == "steam:" then
             identifierSteam = v
