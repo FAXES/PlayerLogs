@@ -42,13 +42,13 @@ AddEventHandler('playerConnecting', function()
     if identifierSteam == nil or not logSteamId then
         identifierSteam = "N/A"
     end
-    if identifierRock == nil not logRockId then
+    if identifierRock == nil or not logRockId then
         identifierRock = "N/A"
     end
-    if identifierDiscord == nil not logDiscordId then
+    if identifierDiscord == nil or not logDiscordId then
         identifierDiscord = "N/A"
     end
-    if identifierIP == nil not logSteamId then
+    if identifierIP == nil or not logSteamId then
         identifierIP = "N/A"
     end
     
