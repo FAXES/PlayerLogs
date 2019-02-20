@@ -11,23 +11,66 @@ logRockId = true
 logDiscordId = true
 logIP = true
 
-function writeLog(name, identifierSteam, identifierRock, identifierDiscord, identifierIP)
+function writeLog(name, identifierSteam, identifierRock, identifierDiscord, identifierIP, action)
     local time = os.date("%m/%d/%Y %I:%M %p")
+
+    if action == nil then
+        action = "N/A"
+    end
     if saveInResource == true then
         file = io.open(resourceDirectory .. fileName .. ".txt", "a")
     else
         file = io.open(fileName .. ".txt", "a")
     end
     if file then
-        file:write("[" .. time .. "] Name: " .. name .. " -> Steam: " .. identifierSteam .. " -> Licence: " .. identifierRock .. " -> IP: " .. identifierIP .. " -> Discord: " .. identifierDiscord .. " \r\n")
+        file:write("[" .. time .. "] Name: " .. name .. " -> Steam: " .. identifierSteam .. " -> Licence: " .. identifierRock .. " -> IP: " .. identifierIP .. " -> Discord: " .. identifierDiscord .. " (Action: " .. action .. ") \r\n")
     end
     file:close()
+end
+
+function FaxActionLog(source, action)
+    local src = source
+
+    local identifierIP = GetPlayerEP(source)
+    local name = GetPlayerName(source)
+
+    for k, v in ipairs(GetPlayerIdentifiers(source)) do
+        if string.sub(v, 1, string.len("steam:")) == "steam:" then
+            identifierSteam = v
+        end
+        if string.sub(v, 1, string.len("license:")) == "license:" then
+            identifierRock = v
+        end
+        if string.sub(v, 1, string.len("discord:")) == "discord:" then
+            identifierDiscord = v
+        end
+    end
+
+    if identifierSteam == nil or not logSteamId then
+        identifierSteam = "N/A"
+    end
+    if identifierRock == nil or not logRockId then
+        identifierRock = "N/A"
+    end
+    if identifierDiscord == nil or not logDiscordId then
+        identifierDiscord = "N/A"
+    end
+    if identifierIP == nil or not logSteamId then
+        identifierIP = "N/A"
+    end
+    if action == nil then
+        action = "N/A"
+    end
+
+
+    writeLog(name, identifierSteam, identifierRock, identifierDiscord, identifierIP, action)
 end
 
 AddEventHandler('playerConnecting', function()
     local source = source
     local identifierIP = GetPlayerEP(source)
     local name = GetPlayerName(source)
+    local action = "Player connecting"
     for k, v in ipairs(GetPlayerIdentifiers(source)) do
         if string.sub(v, 1, string.len("steam:")) == "steam:" then
             identifierSteam = v
@@ -53,5 +96,5 @@ AddEventHandler('playerConnecting', function()
         identifierIP = "N/A"
     end
     
-    writeLog(name, identifierSteam, identifierRock, identifierDiscord, identifierIP)
+    writeLog(name, identifierSteam, identifierRock, identifierDiscord, identifierIP, action)
 end)
